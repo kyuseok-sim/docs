@@ -1,0 +1,22 @@
+deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ focal-security main restricted
+# deb-src http://security.ubuntu.com/ubuntu/ focal-security main restricted
+deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ focal-security universe
+# deb-src http://security.ubuntu.com/ubuntu/ focal-security universe
+deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ focal-security multiverse
+# deb-src http://security.ubuntu.com/ubuntu/ focal-security multiverse
+
+#arm 관련 라이브러리 패키지 주소
+deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports focal main universe restricted multiverse
+deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports focal-security restricted main universe multiverse
+deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports focal-backports restricted main universe multiverse
+deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports focal-updates restricted main universe multiverse
+
+deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu bionic main universe restricted multiverse
+deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu bionic-security main universe restricted multiverse
+deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu bionic-backports main universe restricted multiverse
+deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu bionic-updates main universe restricted multiverse
+
+
+/etc/apt/source.list 파일에 넣은 후 sudo apt update를 입력해서 apt를 업데이트 
+
+관련 패키지 설치시 sudo apt install 패키지명:armhf 를 입력(32bit 라이브러리 경우에는 i386을 입력)

@@ -1,0 +1,54 @@
+docker stop $(docker ps -a -q) /전체 종료
+docker rm $(docker ps -a -q) /전차 삭제
+
+(1) container 생성시 설정
+       #docker run -itd --ip 172.1.0.5 --net=mybridge --name=centos-network-1 centos
+       --ip  : container에 할당 할 IP 설정
+       --net : container 할당 할 IP가 속해 있는 network 대역을 가진 bridge 설정
+
+    (2) container 생성 후 변경
+      < 핵심 >
+        - container의 network를 삭제 후 다시 등록
+
+      < 정보>
+        - contianer 명 : centos-network-1
+  
+      < 절차 >
+        - container 종료
+          #docker container stop centos-network-1
+        - container에서 네트워크 삭제
+          #docker network disconnect mybridge centos-network-1
+        - container에 네트워크 추가
+          #docker network connect mybridge --ip=172.1.0.10 centos-network-1
+        - container 시작 
+        #docker container start centos-network-1
+
+
+-v /home/work/bin:/work/bin 
+
+
+#실행예시
+docker run -it --net dockerbridge1 --ip 192.168.30.60 -v/home/sks:/work/bin ubuntu:18.04
+
+docker run -it --rm --cap-add NET_ADMIN --net dockerbridge1 --ip 192.168.30.60 -v/home/sks/NetBeansProjects/IEC61850Server/dist/Release/GNU-Linux:/work/bin iec850test:0.0 /bin/bash
+
+
+
+# docker run -d --rm --net dockerbridge1 --ip 192.168.30.62 --name vied03  iec850test:0.0 
+
+
+
+//////////////////////DB
+export 하기 : mysqldump 를 이용한 예 
+데이터베이스 전체를 추출하는 경우 
+mysqldump guestdb > guestdb.txt
+특정 테이블만 추출하는 경우 
+mysqldump guestdb guestTbl > guestdb.txt
+특정 테이블에 대한 drop sql 을 추가하려는 경우 
+mysqldump -p –user=username –add-drop-table guestdb guestTbl > guestTbl.txt
+Enter password: ********
+import 하기
+데이터베이스 전체를 추출한 경우 
+$ mysql -u username -p < guestdb.txt’
+특정데이터베이스의 테이블만 추출한 경우 
+$ mysql -u username -p –database=guestdb < guestTbl.txt
